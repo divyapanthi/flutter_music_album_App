@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:music_album/widgets/music_list_widget.dart';
@@ -25,19 +26,21 @@ class AppState extends State<App>{
   Widget build(BuildContext context) {
     return  MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.cyan,
+        primarySwatch: Colors.teal,
       ),
 
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("Albums"),
+          title: Text("Music Albums"),
         ),
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: FloatingActionButton.extended(
           onPressed: (){
             fetchAlbum();
           },
-          child: Icon(Icons.add),
+          label: const Text("Add New Album"),
+          icon: Icon(Icons.music_note),
+          // backgroundColor: Colors.green,
         ),
         body: MusicListWidget(musicList),
       ),
@@ -64,7 +67,7 @@ class AppState extends State<App>{
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
-          backgroundColor: Colors.deepOrange,
+          backgroundColor: Colors.amber,
           textColor: Colors.white,
           fontSize: 16.0
       );

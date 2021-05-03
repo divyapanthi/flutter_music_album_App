@@ -27,54 +27,9 @@ class MusicListWidget extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Card(
-                child: Container(
-                  margin: EdgeInsets.all(8),
-                  child: Row(
-                    children: [
-                      Image.network(musicResponseModel.thumbnail!,
-                        width: 60,
-                        height: 60,
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(left: 12),
-                        child: Column(
-                          children: [
-                            Text(
-                                musicResponseModel.title!,
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top:8),
-                              child: Text(musicResponseModel.artist!),
-                            ),
-                          ]
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
+              buildFirstRow(musicResponseModel),
               Card(child: Image.network(musicResponseModel.image!)),
-
-              Card(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: (){
-                      checkConnectivity(musicResponseModel.url!);
-                    },
-                    child: Text("Buy Now"),
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.all(16),
-                    ),
-                  ),
-                ),
-              ),
+              buildBuyNow(musicResponseModel),
 
             ],
           ),
@@ -94,6 +49,62 @@ class MusicListWidget extends StatelessWidget {
           ],
         ),
       );
+  }
+
+  Card buildFirstRow(MusicResponseModel musicResponseModel) {
+    return Card(
+        child: Container(
+          margin: EdgeInsets.all(8),
+          child: Row(
+            children: [
+              Image.network(musicResponseModel.thumbnail!,
+                width: 60,
+                height: 60,
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 12),
+                child: Column(
+                  children: [
+                    Text(
+                        musicResponseModel.title!,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top:6),
+                      child: Text(musicResponseModel.artist!),
+                    ),
+                  ]
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+  }
+
+  Card buildBuyNow(MusicResponseModel musicResponseModel) {
+    return Card(
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: (){
+                    checkConnectivity(musicResponseModel.url!);
+                  },
+                  child: Text(
+                      "Buy Now",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.all(16),
+                  ),
+                ),
+              ),
+            );
   }
 
   void checkConnectivity(String url) async {
